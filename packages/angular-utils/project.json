@@ -1,0 +1,89 @@
+{
+  "name": "angular-utils",
+  "version": "0.0.1",
+  "sourceRoot": "packages/angular-utils/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "rollup -c --bundleConfigAsCjs"
+          }
+        ],
+        "cwd": "packages/angular-utils"
+      },
+      "outputs": [
+        "{workspaceRoot}/dist/packages/angular-utils"
+      ]
+    },
+    "build:watch": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "rollup -c packages/angular-utils/rollup.config.js --bundleConfigAsCjs --watch"
+          }
+        ],
+        "cwd": "packages/angular-utils"
+      },
+      "outputs": [
+        "{workspaceRoot}/dist/packages/angular-utils"
+      ]
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "packages/angular-utils/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/packages/angular-utils"
+      ],
+      "options": {
+        "jestConfig": "packages/angular-utils/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "nx run my-schematics:build"
+          },
+          {
+            "command": "cd ../../dist && npm publish --access=public"
+          }
+        ],
+        "cwd": "packages/angular-utils"
+      },
+      "outputs": [
+        "{workspaceRoot}/dist/packages/angular-utils"
+      ]
+    },
+    "publish:verdaccio": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "nx run my-schematics:build"
+          },
+          {
+            "command": "cd ../../dist && npm publish --registry http://localhost:4873"
+          }
+        ],
+        "cwd": "packages/angular-utils"
+      },
+      "outputs": [
+        "{workspaceRoot}/dist/packages/angular-utils"
+      ]
+    }
+  },
+  "tags": []
+}
